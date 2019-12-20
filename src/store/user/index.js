@@ -1,3 +1,4 @@
+import { Message } from 'element-ui'
 import { login, logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import {
@@ -33,21 +34,24 @@ const user = {
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
           const data = response
-          const {commit, dispatch, getters, state, rootState, rootGetters} = store;
-          setToken(data.token)
-          commit('SET_TOKEN', data.token)
-          commit('SET_NAME', data.data.username)
-          if (data.data.roles && data.data.roles.length > 0) {
-            commit('SET_ROLES', data.data.roles)
-            var tmpRoutes = []
-            tmpRoutes =  dispatch('GenerateRoutes', data.data.roles)
-            tmpRoutes.then(function(value) {
-              router.addRoutes(value)
-            })
-          } else {
-            reject('getInfo: roles must be a non-null array !')
-          }
-
+		  if (!data.errMsg) {
+			  Message.error(data.errMsg)
+		  } else {
+			const {commit, dispatch, getters, state, rootState, rootGetters} = store;
+			setToken(data.token)
+			commit('SET_TOKEN', data.token)
+			commit('SET_NAME', data.data.username)
+			if (data.data.roles && data.data.roles.length > 0) {
+			  commit('SET_ROLES', data.data.roles)
+			  var tmpRoutes = []
+			  tmpRoutes =  dispatch('GenerateRoutes', data.data.roles)
+			  tmpRoutes.then(function(value) {
+			    router.addRoutes(value)
+			  })
+			} else {
+			  reject('getInfo: roles must be a non-null array !')
+			}  
+		  }
           resolve(response)
         }).catch(error => {
           reject(error)

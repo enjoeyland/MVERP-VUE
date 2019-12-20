@@ -3,32 +3,30 @@
         <div class="panel">
             <div class="row">
 				 <a-row>
-
 					<a-col :span="12" :offset="2">
-          <div>
-						<label style="color:black;">성명</label>
-						<a-input type="text" v-model="empname"/>
-            <a-button class="operation-btn" @click="onSearch">검색</a-button>
-            <ul>
-              <li v-for="(item,index) in NewItems" :key="index" :value="item.key" v-text="item.value"></li>
-            </ul>
-            </div>
-          </a-col>
+						<div>
+							<label style="color:black;">성명</label>
+							<a-input type="text" v-model="empname"/>
+							<a-button class="operation-btn" @click="onSearch">검색</a-button>
+							<ul>
+								<li v-for="(item,index) in NewItems" :key="index" :value="item.key" v-text="item.value"></li>
+							</ul>
+						</div>
+					</a-col>
+					<Table
+					   :on-add="handleAdd.bind(this)"
+					   :on-delete="handleDelete.bind(this)"
+					   :on-edit="handleEdit.bind(this)">
+					
+						<template v-slot:add-modal="props">
+						  <AdminManagement_AddModal v-bind="props" />
+						</template>
 
-            <Table
-                   :on-add="handleAdd.bind(this)"
-                   :on-delete="handleDelete.bind(this)"
-                   :on-edit="handleEdit.bind(this)">
+						<template v-slot:edit-modal="props">
+							<AdminManagement_EditModal v-bind="props" />
+						</template>
 
-                <template v-slot:add-modal="props">
-                  <AdminManagement_AddModal v-bind="props" />
-                </template>
-
-                <template v-slot:edit-modal="props">
-                    <AdminManagement_EditModal v-bind="props" />
-                </template>
-
-            </Table>
+					</Table>
 				</a-row>
             </div>
             <a-row type="flex" justify="center">

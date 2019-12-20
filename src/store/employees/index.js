@@ -68,7 +68,6 @@ const employee = {
 
   actions: {
     QueryEmpInfo({ commit }, empname) {
-
       return new Promise((resolve, reject) => {
         getEmployeeInfo(empname).then(res => {
           const data = res[0]
@@ -92,7 +91,6 @@ const employee = {
           reject(error)
         })
       })
-
     }
   }
 }
