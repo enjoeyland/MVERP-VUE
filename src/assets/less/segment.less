@@ -1,0 +1,23 @@
+.segment {
+  height: calc(~"100% - @{toolbar-height}");
+  color: black;
+  overflow-y: scroll;
+}
+
+.segment .panel {
+  width: 95%;
+  height: auto;
+  border: 1px solid @light-grey;
+  border-radius: 10px;
+  background: #fff;
+  margin: 30px auto;
+}
+
+.segment .panel .row {
+  padding: 0 10px 30px;
+  border-bottom: 1px solid @light-grey;
+  color:#fff;
+  &:first-child {
+    padding: 30px 10px;
+  }
+}
